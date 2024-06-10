@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Member;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Member::class);
+            $table->foreignIdFor(User::class);
             $table->string('picture_url')->nullable();
             $table->string('url')->nullable();
             $table->enum('state', ['initialized', 'verified', 'accepted', 'printed'])->default('initialized');
