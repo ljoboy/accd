@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('postnom')->nullable();
             $table->string('phone')->unique();
             $table->date('date_inscription')->nullable();
-            $table->string('qr_code')->unique();
+            $table->string('qr_code')->unique()->nullable();
 
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
