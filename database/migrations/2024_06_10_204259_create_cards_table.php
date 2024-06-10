@@ -15,8 +15,7 @@ return new class extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class);
-            $table->string('picture_url')->nullable();
-            $table->string('url')->nullable();
+            $table->string('card_url')->nullable();
             $table->enum('state', ['initialized', 'verified', 'accepted', 'printed'])->default('initialized');
             $table->timestamps();
             $table->softDeletes();
