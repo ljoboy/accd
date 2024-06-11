@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Althinect\FilamentSpatieRolesPermissions\Concerns\HasSuperAdmin;
+use App\Traits\GeneratesUniqueCode;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -22,6 +23,7 @@ class User extends Authenticatable implements FilamentUser
     use HasFactory, Notifiable;
     use SoftDeletes;
     use HasSuperAdmin;
+    use GeneratesUniqueCode;
 
     /**
      * The attributes that are mass assignable.
