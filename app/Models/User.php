@@ -17,6 +17,9 @@ use Illuminate\Notifications\Notifiable;
 /**
  * @property mixed $email
  * @property mixed $is_active
+ * @property mixed $avatar
+ * @property mixed $qr_code
+ * @property mixed $name
  */
 class User extends Authenticatable implements FilamentUser
 {
@@ -41,6 +44,7 @@ class User extends Authenticatable implements FilamentUser
         'agency_id',
         'avatar',
         'is_active',
+        'qr_code',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -104,5 +108,14 @@ class User extends Authenticatable implements FilamentUser
         return new Attribute(
             get: fn ($value) => strtoupper($value),
         );
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function ($user) {
+            $card = Card::create([
+                'user_id' => $user->id,
+            ]);
+        });
     }
 }
