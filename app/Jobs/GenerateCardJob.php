@@ -35,6 +35,16 @@ class GenerateCardJob implements ShouldQueue
     {
         $user = $this->user;
 
+        $qrCodePath = Storage::disk('public')->path('qr_codes/');
+        if (!file_exists($qrCodePath)) {
+            mkdir($qrCodePath);
+        }
+
+        $cardPath = Storage::disk('public')->path('cards/');
+        if (!file_exists($cardPath)) {
+            mkdir($cardPath);
+        }
+
         // Charger le fond d'image
         $backgroundPath = public_path('images/card_back.png');
         $img = Image::read($backgroundPath);
@@ -42,12 +52,12 @@ class GenerateCardJob implements ShouldQueue
         // Ajouter l'avatar
         $avatarPath = Storage::disk('public')->path($user->avatar);
         $avatar = Image::read($avatarPath);
-        $img->place($avatar, 'top-left', 50, 50);
+        $img->place($avatar, 'top-left', 40, 250);
 
         // Ajouter le nom, prénom, et postnom
-        $img->text($user->name . ' ' . $user->prenom . ' ' . $user?->postnom, 600, 80, function ($font) {
-            $font->file(public_path('fonts/Arial.ttf'));
-            $font->size(24);
+        $img->text($user->name . ' ' . $user->prenom . ' ' . $user?->postnom, 800, 450, function ($font) {
+            $font->file(public_path('fonts/Roboto-Bold.ttf'));
+            $font->size(84);
             $font->color('#000000');
             $font->align('left');
             $font->valign('top');
@@ -65,20 +75,17 @@ class GenerateCardJob implements ShouldQueue
             ->build();
 
         // TODO : Mettre dans un dossier temporaire
-        $qrCodePath = Storage::disk('public')->path('qr_codes/');
-        if (!file_exists($qrCodePath)) {
-            mkdir($qrCodePath);
-        }
-        $qrCodePath .= uniqid() . '.png';
+        $qrCodePath = Storage::disk('public')->path('qr_codes/' . uniqid() . '.png');
         $qrCode->saveToFile($qrCodePath);
 
         $qrCodeImage = Image::read($qrCodePath);
-        $img->place($qrCodeImage, 'top-left', 800, 150);
+        $img->place($qrCodeImage, 'top-left', 1200, 600);
 
         // Enregistrer l'image générée
-        $generatedImagePath = public_path('images/cards/' . uniqid($user->name . '_') . '.png');
+        $path = 'cards/' . uniqid($user->name . '_') . '.png';
+        $generatedImagePath = Storage::disk('public')->path($path);
         $img->save($generatedImagePath);
-        $user->card->url = $generatedImagePath;
+        $user->card->url = $path;
         $user->card->status = Status::Accepted;
         $user->card->save();
 
