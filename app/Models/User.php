@@ -10,6 +10,7 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,6 +21,8 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed $avatar
  * @property mixed $qr_code
  * @property mixed $name
+ * @property mixed $prenom
+ * @property mixed|null $postnom
  */
 class User extends Authenticatable implements FilamentUser
 {
@@ -79,6 +82,11 @@ class User extends Authenticatable implements FilamentUser
     public function agency(): BelongsTo
     {
         return $this->belongsTo(Agency::class);
+    }
+
+    public function card(): HasOne
+    {
+        return $this->hasOne(Card::class);
     }
 
     /**

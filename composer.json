@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.2",
         "althinect/filament-spatie-roles-permissions": "^2.2",
+        "endroid/qr-code": "^5.0",
         "filament/actions": "^3.2",
         "filament/filament": "^3.2",
         "filament/forms": "^3.2",
@@ -14,6 +15,7 @@
         "filament/notifications": "^3.2",
         "filament/tables": "^3.2",
         "filament/widgets": "^3.2",
+        "intervention/image-laravel": "^1.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",

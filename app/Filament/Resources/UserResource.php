@@ -74,7 +74,6 @@ class UserResource extends Resource
                     ->label('Agence')
                     ->default(null),
                 Forms\Components\FileUpload::make('avatar')
-                    ->avatar()
                     ->image()
                     ->imageEditor()
                     ->imageEditorAspectRatios([
