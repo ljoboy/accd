@@ -48,7 +48,8 @@ class CardResource extends Resource
                     ->label('Prenom'),
                 Tables\Columns\ImageColumn::make('url')
                     ->label('Carte')
-                    ->searchable(),
+                    ->circular()
+                    ->defaultImageUrl(asset('/images/card_back.png')),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
